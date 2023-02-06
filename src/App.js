@@ -2,7 +2,7 @@ import "./App.css";
 import Microrobot from "./Components/Microrobot/Microrobot";
 import Background from "./Components/Background/background";
 import BackgroundStream from "./Images/back-04.svg";
-import DangerZone from "./Images/Danger-Zone.svg";
+import DangerZone from "./Images/dangerwback.svg";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <div className="arena"
-            style={{overflow:'hidden'}}>
+            >
           <img
             id="backgroundStream"
             src={BackgroundStream}

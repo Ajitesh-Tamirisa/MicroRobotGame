@@ -28,9 +28,16 @@ function Microrobot(props) {
   let userWin = props.userWin;
 
   const svgVariants = {
-    hidden: {
-      rotate: -360,
-      x: 100,
+    leftHidden: {
+      x: leftRobotX,
+      y: 0,
+    },
+    middleHidden: {
+      x: middleRobotX,
+      y: 0,
+    },
+    rightHidden: {
+      x: rightRobotX,
       y: 0,
     },
     leftVisible: {
@@ -48,14 +55,22 @@ function Microrobot(props) {
       transition: { duration: 0.5 },
       x: rightRobotX,
     },
+    attackMode:{
+      x: rightRobotX,
+      transition:{ type: "spring" } 
+    }
   };
+
+  const disableAttack = ()=>{
+    setAttack(false);
+  }
 
   const handleKeyUp = async e=>{
 
     //spacebar to toggle attack
     if(e.keyCode===32){
       setAttack(!attack)
-      // const res = await setTimeout(5000, 'result')
+      setTimeout(disableAttack, 3000)
       // setAttack(false)
       return
     }
@@ -183,25 +198,25 @@ function Microrobot(props) {
       {!userWin && !props.userLoss && <div style={{ width: 80, height: 100, display: "flex" }}>
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="leftHidden"
           animate="leftVisible"
           src={microrobot1}
         />
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="middleHidden"
           animate="middleVisible"
           src={microrobot2}
         />
         {!attack && <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="rightHidden"
           animate="rightVisible"
           src={microrobot3}
         />}
         {attack && <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="attackMode"
           animate="rightVisible"
           src={microrobotSpecial}
         />}
@@ -209,19 +224,19 @@ function Microrobot(props) {
       {props.userWin && <div style={{ width: 80, height: 100, display: "flex" }}>
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="leftHidden"
           animate="leftVisible"
           src={microHappy1}
         />
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="middleHidden"
           animate="middleVisible"
           src={microHappy2}
         />
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="rightHidden"
           animate="rightVisible"
           src={microHappy3}
         />
@@ -230,19 +245,19 @@ function Microrobot(props) {
       {props.userLoss && <div style={{ width: 80, height: 100, display: "flex" }}>
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="leftHidden"
           animate="leftVisible"
           src={microSad1}
         />
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="middleHidden"
           animate="middleVisible"
           src={microSad2}
         />
         <motion.img
           variants={svgVariants}
-          initial="hidden"
+          initial="rightHidden"
           animate="rightVisible"
           src={microSad3}
         />
