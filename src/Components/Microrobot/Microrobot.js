@@ -61,128 +61,116 @@ function Microrobot(props) {
     }
   };
 
+
   const disableAttack = ()=>{
     setAttack(false);
   }
 
-  const handleKeyUp = async e=>{
-
+  const handleKeyUp = async (e) => {
     //spacebar to toggle attack
     if(e.keyCode===32){
       setAttack(!attack)
       setTimeout(disableAttack, 3000)
       // setAttack(false)
-      return
+      return;
     }
 
     // w-87, a-65, s-83 , d-68;
     //left arrow-37, right arrow - 39;
     //A, D control the movements of the left sphere of the robot
     //Arrow keys control the movements of the right sphere of the robot
-    
+
     //Forward movement - D, left arrow, A, right arrow   | 68, 37, 65, 39
-    //Backward movement - left arrow, D, right arrow, A  | 37, 68, 39, 65    
+    //Backward movement - left arrow, D, right arrow, A  | 37, 68, 39, 65
 
-    if(!forwardMovement && !backwardMovement){
-      if(e.keyCode===68 && !leftRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+26.46).toFixed(2)))
-        setLeftRobotLock(true)
-        setMiddleRobotX(parseFloat((middleRobotX-13.53).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-13.53).toFixed(2)))
-        setForwardMovement(true)
-        console.log("Forward movement started")
+    if (!forwardMovement && !backwardMovement) {
+      if (e.keyCode === 68 && !leftRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 26.46).toFixed(2)));
+        setLeftRobotLock(true);
+        setMiddleRobotX(parseFloat((middleRobotX - 13.53).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 13.53).toFixed(2)));
+        setForwardMovement(true);
+        console.log("Forward movement started");
+      } else if (e.keyCode === 37 && !rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 26.46).toFixed(2)));
+        setRightRobotLock(true);
+        setMiddleRobotX(parseFloat((middleRobotX + 13.53).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 13.53).toFixed(2)));
+        setBackwardMovement(true);
+        console.log("Backward movement started");
       }
-      else if(e.keyCode===37 && !rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+26.46).toFixed(2)))
-        setRightRobotLock(true)
-        setMiddleRobotX(parseFloat((middleRobotX+13.53).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-13.53).toFixed(2)))
-        setBackwardMovement(true)
-        console.log("Backward movement started")
-      }
-    }
-
-    else if(forwardMovement){
-      
+    } else if (forwardMovement) {
       //Forward movement - D, left arrow, A, right arrow   | 68, 37, 65, 39
 
-      if(e.keyCode===68 && !leftRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+26.46).toFixed(2)))
-        setLeftRobotLock(true)
-        setMiddleRobotX(parseFloat((middleRobotX-13.53).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-13.53).toFixed(2)))
+      if (e.keyCode === 68 && !leftRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 26.46).toFixed(2)));
+        setLeftRobotLock(true);
+        setMiddleRobotX(parseFloat((middleRobotX - 13.53).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 13.53).toFixed(2)));
         // console.log("1")
-      }
-      else if(e.keyCode===37 && leftRobotLock && !rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+14.39).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-25.60).toFixed(2)))
-        setRightRobotLock(true)
+      } else if (e.keyCode === 37 && leftRobotLock && !rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 14.39).toFixed(2)));
+        setMiddleRobotX(parseFloat((middleRobotX + 14.39).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 25.6).toFixed(2)));
+        setRightRobotLock(true);
         // console.log("2")
-      }
-      else if(e.keyCode===65 && leftRobotLock && rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX-25.60).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX+14.39).toFixed(2)))
-        setLeftRobotLock(false)
+      } else if (e.keyCode === 65 && leftRobotLock && rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX - 25.6).toFixed(2)));
+        setMiddleRobotX(parseFloat((middleRobotX + 14.39).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX + 14.39).toFixed(2)));
+        setLeftRobotLock(false);
         // console.log("3")
-      }
-      else if(e.keyCode===39 && rightRobotLock && !leftRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX+39.99).toFixed(2)))
-        setRightRobotLock(false)
+      } else if (e.keyCode === 39 && rightRobotLock && !leftRobotLock) {
+        setLeftRobotX(parseFloat(leftRobotX.toFixed(2)));
+        setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX + 39.99).toFixed(2)));
+        setRightRobotLock(false);
         //End forward movement cycle
-        setForwardMovement(false)
+        setForwardMovement(false);
         // console.log("4")
       }
-    }
-
-    else if(backwardMovement){
-            
+    } else if (backwardMovement) {
       //Backward movement - left arrow, D, right arrow, A  | 37, 68, 39, 65
 
       //Stroke A
-      if(e.keyCode===37 && !rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+26.46).toFixed(2)))
-        setRightRobotLock(true)
-        setMiddleRobotX(parseFloat((middleRobotX+13.53).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-13.53).toFixed(2)))
+      if (e.keyCode === 37 && !rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 26.46).toFixed(2)));
+        setRightRobotLock(true);
+        setMiddleRobotX(parseFloat((middleRobotX + 13.53).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 13.53).toFixed(2)));
         // console.log("1")
       }
 
       //Stroke B
-      else if(e.keyCode===68 && !leftRobotLock && rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX+14.39).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-25.60).toFixed(2)))
-        setLeftRobotLock(true)
+      else if (e.keyCode === 68 && !leftRobotLock && rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX + 14.39).toFixed(2)));
+        setMiddleRobotX(parseFloat((middleRobotX - 14.39).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX - 25.6).toFixed(2)));
+        setLeftRobotLock(true);
         // console.log("2")
       }
 
       //Stroke C
-      else if(e.keyCode===39 && leftRobotLock && rightRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX-25.60).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX+14.39).toFixed(2)))
-        setRightRobotLock(false)
+      else if (e.keyCode === 39 && leftRobotLock && rightRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX - 25.6).toFixed(2)));
+        setMiddleRobotX(parseFloat((middleRobotX - 14.39).toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX + 14.39).toFixed(2)));
+        setRightRobotLock(false);
         // console.log("3")
       }
 
       //Stroke D
-      else if(e.keyCode===65 && !rightRobotLock && leftRobotLock){
-        setLeftRobotX(parseFloat((leftRobotX-30.5).toFixed(2)))
-        setMiddleRobotX(parseFloat((middleRobotX).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX+9.49).toFixed(2)))
-        setLeftRobotLock(false)
-        //End backward movement cycle        
-        setBackwardMovement(false)
+      else if (e.keyCode === 65 && !rightRobotLock && leftRobotLock) {
+        setLeftRobotX(parseFloat((leftRobotX - 30.5).toFixed(2)));
+        setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX + 9.49).toFixed(2)));
+        setLeftRobotLock(false);
+        //End backward movement cycle
+        setBackwardMovement(false);
         // console.log("4")
       }
     }
-
   };
-
 
   const handleClick = () => {
     arenaRef.current.focus();

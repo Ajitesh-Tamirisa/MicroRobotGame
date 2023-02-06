@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Microrobot from "../Microrobot/Microrobot";
 import bacteria from "../../Images/bacteria.svg";
@@ -20,6 +21,8 @@ function Background(props) {
 
   const controls = useAnimation();
 
+  const src = "../..Images/microhappy-01.mp4";
+
   const check = () => {
     if (!visible) controls.stop();
     // await controls.start({
@@ -38,13 +41,11 @@ function Background(props) {
       document.getElementById("lostBacteria1").style.visibility = "visible";
       console.log("Entered: " + posX);
       loseAnimation();
-    } 
-    else if(!detectBacteriaWin()) {
-      setPosX(posX +3);
-    }
-    else if(detectBacteriaWin()){
-      setVisible(false)
-      props.updateUserLoss(true)
+    } else if (!detectBacteriaWin()) {
+      setPosX(posX + 3);
+    } else if (detectBacteriaWin()) {
+      setVisible(false);
+      props.updateUserLoss(true);
     }
   };
 
@@ -82,9 +83,9 @@ function Background(props) {
     initial: { x: posX, y: -130 },
     win: {
       x: posX,
-      scale:1.5
+      scale: 1.5,
     },
-  }
+  };
 
   function loseAnimation() {
     let id = setInterval(frame, 550);
@@ -105,18 +106,16 @@ function Background(props) {
     }
   }
 
-  
-  const detectBacteriaWin = ()=>{
-    let rect = document.getElementById('bacteriaSvg').getBoundingClientRect();
-    let bacteriaPos = rect['left']
+  const detectBacteriaWin = () => {
+    let rect = document.getElementById("bacteriaSvg").getBoundingClientRect();
+    let bacteriaPos = rect["left"];
     // console.log(bacteriaPos+" --------------- "+props.streamEnd)
-    if(bacteriaPos>=props.streamEnd && props.streamEnd!==0){
-      console.log("End")
+    if (bacteriaPos >= props.streamEnd && props.streamEnd !== 0) {
+      console.log("End");
       return true;
     }
     return false;
-  }
-
+  };
 
   return (
     <div>
@@ -133,7 +132,9 @@ function Background(props) {
               // exit="exit"
               // onAnimationStart={() => check()}
 
-              onAnimationComplete={() => check()}
+              onAnimationComplete={() => {
+                check();
+              }}
               onAnimationEnd={() => {
                 document.getElementById("bacteria").style.display = "flex";
               }}
@@ -212,10 +213,7 @@ function Background(props) {
             />
           )}
         </span>
-        <span
-          className="wonBacteria"
-          id="wonBacteria"
-        >
+        <span className="wonBacteria" id="wonBacteria">
           {props.userLoss && (
             <motion.img
               variants={wonBacteriaProps}
