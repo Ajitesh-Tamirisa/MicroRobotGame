@@ -33,7 +33,7 @@ function Background(props) {
     //   //   duration: 1,
     //   // },
     // });
-    if (posX - 210 <= props.pos + 95) {
+    if (posX - 210 <= props.pos + 100) {
       setVisible(false);
       props.updateUserWin(true);
       controls.stop();

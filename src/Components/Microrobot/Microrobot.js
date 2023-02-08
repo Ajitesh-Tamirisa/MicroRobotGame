@@ -251,7 +251,7 @@ function Microrobot(props) {
         />
       </div>
       }
-      <Background pos={leftRobotX} streamEnd={props.streamEnd} userWin={props.userWin} updateUserWin={props.updateUserWin} userLoss={props.userLoss} updateUserLoss={props.updateUserLoss} />
+      <Background pos={rightRobotX} streamEnd={props.streamEnd} userWin={props.userWin} updateUserWin={props.updateUserWin} userLoss={props.userLoss} updateUserLoss={props.updateUserLoss} />
     </div>
   );
 }
