@@ -55,22 +55,21 @@ function Microrobot(props) {
       transition: { duration: 0.5 },
       x: rightRobotX,
     },
-    attackMode:{
+    attackMode: {
       x: rightRobotX,
-      transition:{ type: "spring" } 
-    }
+      transition: { type: "spring" },
+    },
   };
 
-
-  const disableAttack = ()=>{
+  const disableAttack = () => {
     setAttack(false);
-  }
+  };
 
   const handleKeyUp = async (e) => {
     //spacebar to toggle attack
-    if(e.keyCode===32){
-      setAttack(!attack)
-      setTimeout(disableAttack, 3000)
+    if (e.keyCode === 32) {
+      setAttack(!attack);
+      setTimeout(disableAttack, 3000);
       // setAttack(false)
       return;
     }
@@ -183,75 +182,91 @@ function Microrobot(props) {
       <button onClick={handleClick} style={{ display: "flex", height: 20 }}>
         Play now
       </button>
-      {!userWin && !props.userLoss && <div style={{ width: 80, height: 100, display: "flex" }}>
-        <motion.img
-          variants={svgVariants}
-          initial="leftHidden"
-          animate="leftVisible"
-          src={microrobot1}
-        />
-        <motion.img
-          variants={svgVariants}
-          initial="middleHidden"
-          animate="middleVisible"
-          src={microrobot2}
-        />
-        {!attack && <motion.img
-          variants={svgVariants}
-          initial="rightHidden"
-          animate="rightVisible"
-          src={microrobot3}
-        />}
-        {attack && <motion.img
-          variants={svgVariants}
-          initial="attackMode"
-          animate="rightVisible"
-          src={microrobotSpecial}
-        />}
-      </div>}
-      {props.userWin && <div style={{ width: 80, height: 100, display: "flex" }}>
-        <motion.img
-          variants={svgVariants}
-          initial="leftHidden"
-          animate="leftVisible"
-          src={microHappy1}
-        />
-        <motion.img
-          variants={svgVariants}
-          initial="middleHidden"
-          animate="middleVisible"
-          src={microHappy2}
-        />
-        <motion.img
-          variants={svgVariants}
-          initial="rightHidden"
-          animate="rightVisible"
-          src={microHappy3}
-        />
-      </div>
-      }
-      {props.userLoss && <div style={{ width: 80, height: 100, display: "flex" }}>
-        <motion.img
-          variants={svgVariants}
-          initial="leftHidden"
-          animate="leftVisible"
-          src={microSad1}
-        />
-        <motion.img
-          variants={svgVariants}
-          initial="middleHidden"
-          animate="middleVisible"
-          src={microSad2}
-        />
-        <motion.img
-          variants={svgVariants}
-          initial="rightHidden"
-          animate="rightVisible"
-          src={microSad3}
-        />
-      </div>
-      }
-      <Background pos={leftRobotX} streamEnd={props.streamEnd} userWin={props.userWin} updateUserWin={props.updateUserWin} userLoss={props.userLoss} updateUserLoss={props.updateUserLoss} />
+      {!userWin && !props.userLoss && (
+        <div style={{ width: 80, height: 100, display: "flex" }}>
+          <motion.img
+            variants={svgVariants}
+            initial="leftHidden"
+            animate="leftVisible"
+            src={microrobot1}
+          />
+          <motion.img
+            variants={svgVariants}
+            initial="middleHidden"
+            animate="middleVisible"
+            src={microrobot2}
+          />
+          {!attack && (
+            <motion.img
+              variants={svgVariants}
+              initial="rightHidden"
+              animate="rightVisible"
+              src={microrobot3}
+            />
+          )}
+          {attack && (
+            <motion.img
+              variants={svgVariants}
+              initial="attackMode"
+              animate="rightVisible"
+              src={microrobotSpecial}
+            />
+          )}
+        </div>
+      )}
+      {props.userWin && (
+        <div style={{ width: 80, height: 100, display: "flex" }}>
+          <motion.img
+            variants={svgVariants}
+            initial="leftHidden"
+            animate="leftVisible"
+            src={microHappy1}
+          />
+          <motion.img
+            variants={svgVariants}
+            initial="middleHidden"
+            animate="middleVisible"
+            src={microHappy2}
+          />
+          <motion.img
+            variants={svgVariants}
+            initial="rightHidden"
+            animate="rightVisible"
+            src={microHappy3}
+          />
+        </div>
+      )}
+      {props.userLoss && (
+        <div style={{ width: 80, height: 100, display: "flex" }}>
+          <motion.img
+            variants={svgVariants}
+            initial="leftHidden"
+            animate="leftVisible"
+            src={microSad1}
+          />
+          <motion.img
+            variants={svgVariants}
+            initial="middleHidden"
+            animate="middleVisible"
+            src={microSad2}
+          />
+          <motion.img
+            variants={svgVariants}
+            initial="rightHidden"
+            animate="rightVisible"
+            src={microSad3}
+          />
+        </div>
+      )}
+      <Background
+        pos={leftRobotX}
+        streamEnd={props.streamEnd}
+        userWin={props.userWin}
+        updateUserWin={props.updateUserWin}
+        userLoss={props.userLoss}
+        updateUserLoss={props.updateUserLoss}
+        attack={attack}
+      />
     </div>
   );
 }

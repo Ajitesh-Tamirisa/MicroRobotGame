@@ -33,7 +33,13 @@ function Background(props) {
     //   //   duration: 1,
     //   // },
     // });
-    if (posX - 210 <= props.pos + 95) {
+
+    if (
+      posX - 210 <= props.pos + 100 ||
+      (props.attack && posX - 210 <= props.pos + 250)
+    ) {
+      console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
+
       setVisible(false);
       props.updateUserWin(true);
       controls.stop();
