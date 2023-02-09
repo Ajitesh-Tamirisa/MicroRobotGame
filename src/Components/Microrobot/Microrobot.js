@@ -10,7 +10,8 @@ import microHappy3 from "../../Images/micro-happy03.svg";
 import microSad1 from "../../Images/micro-sad01.svg";
 import microSad2 from "../../Images/micro-sad02.svg";
 import microSad3 from "../../Images/micro-sad03.svg";
-import microrobotSpecial from "../../Images/micro-normal3.svg";
+import microrobotSpecial from "../../Images/bot with syringe.svg";
+import syringe from "../../Images/syringe.svg";
 import Background from "../Background/background";
 
 function Microrobot(props) {
@@ -56,7 +57,10 @@ function Microrobot(props) {
       x: rightRobotX,
     },
     attackMode: {
-      x: rightRobotX,
+      rotate:360,
+      scale:0.9,
+      x: rightRobotX-100,
+      y:-10,
       transition: { type: "spring" },
     },
   };
@@ -196,20 +200,18 @@ function Microrobot(props) {
             animate="middleVisible"
             src={microrobot2}
           />
-          {!attack && (
-            <motion.img
-              variants={svgVariants}
-              initial="rightHidden"
-              animate="rightVisible"
-              src={microrobot3}
-            />
-          )}
+          <motion.img
+            variants={svgVariants}
+            initial="rightHidden"
+            animate="rightVisible"
+            src={microrobot3}
+          />
           {attack && (
             <motion.img
               variants={svgVariants}
               initial="attackMode"
               animate="rightVisible"
-              src={microrobotSpecial}
+              src={syringe}
             />
           )}
         </div>

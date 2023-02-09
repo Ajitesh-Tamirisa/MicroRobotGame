@@ -48,7 +48,7 @@ function Background(props) {
       console.log("Entered: " + posX);
       loseAnimation();
     } else if (!detectBacteriaWin()) {
-      setPosX(posX + 3);
+      setPosX(posX + 4);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);
@@ -116,7 +116,7 @@ function Background(props) {
     let rect = document.getElementById("bacteriaSvg").getBoundingClientRect();
     let bacteriaPos = rect["left"];
     // console.log(bacteriaPos+" --------------- "+props.streamEnd)
-    if (bacteriaPos >= props.streamEnd && props.streamEnd !== 0) {
+    if (bacteriaPos >= props.streamEnd-30 && props.streamEnd !== 0) {
       console.log("End");
       return true;
     }
