@@ -48,7 +48,7 @@ function Background(props) {
       console.log("Entered: " + posX);
       loseAnimation();
     } else if (!detectBacteriaWin()) {
-      setPosX(posX + 4);
+      setPosX(posX + 10);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);
