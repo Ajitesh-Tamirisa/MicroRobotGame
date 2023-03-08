@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Microrobot from "../Microrobot/Microrobot";
-import bacteria from "../../Images/bacteria.svg";
+import bacteria from "../../Images/bacterium-02.svg";
 import LostBacteria1 from "../../Images/bac-lose1.svg";
 import LostBacteria2 from "../../Images/bac-lose2.svg";
 import LostBacteria3 from "../../Images/bac-lose3.svg";
@@ -48,7 +48,7 @@ function Background(props) {
       console.log("Entered: " + posX);
       loseAnimation();
     } else if (!detectBacteriaWin()) {
-      setPosX(posX + 10);
+      setPosX(posX + 3);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);
