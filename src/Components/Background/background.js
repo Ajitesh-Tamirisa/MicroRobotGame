@@ -9,11 +9,13 @@ import LostBacteria3 from "../../Images/bac-lose3.svg";
 import LostBacteria4 from "../../Images/bac-lose4.svg";
 import LostBacteria5 from "../../Images/bac-lose5.svg";
 import WonBacteria from "../../Images/bac-happy.svg";
+import bacteriumDent from "../../Images/bacterium_dent_02.svg"
 import "./background.css";
 
 function Background(props) {
-  const [posX, setPosX] = useState(450);
+  const [posX, setPosX] = useState(550);
   const [visible, setVisible] = useState(true);
+  const [bacteriaDentState, setBacteriaDentState] = useState(false)
   // const [userWin, setUserWin] = useState(false);
   // const [userLoss, setUserLoss] = useState(false)
 
@@ -38,15 +40,17 @@ function Background(props) {
       posX - 210 <= props.pos + 100 ||
       (props.attack && posX - 210 <= props.pos + 250)
     ) {
-      console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
-
-      setVisible(false);
-      props.updateUserWin(true);
+      // console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
+       
+      // setTimeout(setVisible(false), 3000);      
+      // props.updateUserWin(true);
+      // controls.stop();
+      // // document.getElementById("bacteria").style.display = "none";
+      // document.getElementById("lostBacteria1").style.visibility = "visible";
+      // console.log("Entered: " + posX);   
+      // loseAnimation()
       controls.stop();
-      // document.getElementById("bacteria").style.display = "none";
-      document.getElementById("lostBacteria1").style.visibility = "visible";
-      console.log("Entered: " + posX);
-      loseAnimation();
+      setTimeout(handleUserWin, 750);  
     } else if (!detectBacteriaWin()) {
       setPosX(posX + 3);
     } else if (detectBacteriaWin()) {
@@ -54,6 +58,18 @@ function Background(props) {
       props.updateUserLoss(true);
     }
   };
+
+  const handleUserWin = ()=>{
+    // setTimeout(console.log('break'), 5000);   
+    setBacteriaDentState(true)
+    console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
+    setVisible(false)   
+    // document.getElementById("bacteria").style.display = "none";
+    document.getElementById("lostBacteria1").style.visibility = "visible";
+    console.log("Entered: " + posX);
+    dentBacteria() 
+    // loseAnimation()
+  }
 
   const animationProps = {
     initial: { x: 450, y: 0, scale: "1.4" },
@@ -94,22 +110,39 @@ function Background(props) {
   };
 
   function loseAnimation() {
-    let id = setInterval(frame, 550);
-    let i = 2;
+    
+    
+    // document.getElementById("dentBacteria").style.display = "none";
+    props.updateUserWin(true)
+    let id = setInterval(frame, 400);
+    let i = 1;
 
     function frame() {
       if (i == 6) {
         clearInterval(id);
-      } else {
+      }
+      else if(i==1){   
+        // console.log('breakstart')
+        // setInterval(console.log('break'), 1000)  
+        // console.log('breakend')   
+        document.getElementById("dentBacteria").style.display = "none";
+        i++;
+      }
+      else {
         let k = i - 1;
         let cName1 = "lostBacteria" + k;
         let cName2 = "lostBacteria" + i;
-        // console.log(cName1 + "\n" + cName2);
+        console.log(cName1 + "\n" + cName2);
         document.getElementById(cName1 + "").style.display = "none";
         document.getElementById(cName2 + "").style.display = "block";
         i++;
       }
     }
+  }
+  const dentBacteria = ()=>{ 
+    document.getElementById("dentBacteria").style.display = "block";
+    setTimeout(loseAnimation, 1000);
+    // ()
   }
 
   const detectBacteriaWin = () => {
@@ -149,6 +182,20 @@ function Background(props) {
         </AnimatePresence>
       </div>
       <div>
+        <span
+            className="dentBacteria"
+            id="dentBacteria"
+            style={{ display: "none" }}
+          >
+            {bacteriaDentState && (
+              <motion.img
+                variants={lossAnimationProps}
+                src={bacteriumDent}
+                initial="initial"
+                animate="loss"
+              />
+            )}
+          </span>
         <span
           className="lostBacteria1"
           id="lostBacteria1"

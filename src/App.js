@@ -42,13 +42,13 @@ function App() {
   const handleUserWinVid = function(){
     setPlayUserWinVid(true)
     console.log(playUserWinVid)
-    document.getElementById("userWinVid").play();
+    // document.getElementById("userWinVid");
   }
 
   const handleUserLossVid = function(){
     setPlayUserLossVid(true)
     console.log(playUserLossVid)
-    document.getElementById("userLossVid").play();
+    // document.getElementById("userLossVid").play();
   }
   const detectStreamEdges = () => {
     
@@ -72,14 +72,14 @@ function App() {
     <div className="App">      
       {playUserWinVid && 
       <div style={{width:'100%', height:'100%'}}>
-        <video id="userWinVid" width="100%" height="100%" autoplay="true" muted loop>
+        <video id="userWinVid" width="100%" height="100%" autoPlay={true} muted loop>
           <source src={playerWinVideo} type="video/mp4"/>
           Your browser does not support the video tag.
         </video>
       </div>}
       {playUserLossVid && 
       <div style={{width:'100%', height:'100%'}}>
-        <video id="userLossVid" width="100%" height="100%" autoplay="true" muted loop>
+        <video id="userLossVid" width="100%" height="100%" autoPlay={true} muted loop>
           <source src={playerLossVideo} type="video/mp4"/>
           Your browser does not support the video tag.
         </video>

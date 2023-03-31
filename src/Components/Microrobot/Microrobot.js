@@ -57,12 +57,18 @@ function Microrobot(props) {
       x: rightRobotX
     },
     attackMode: {
-      rotate:360,
-      scale:0.9,
+      rotate:60,
+      scale:0.55,
       x: rightRobotX-100,
       y:-10,
       transition: { type: "spring" },
     },
+    attackModeAnimate:{
+      rotate: 30,
+      transition: { duration: 0.5 },
+      x:rightRobotX-35,
+      y:10
+    }
   };
 
   const disableAttack = () => {
@@ -285,9 +291,9 @@ function Microrobot(props) {
     arenaRef.current.focus();
   };
 
-  useEffect(()=>{
-    console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement)
-  },[leftRobotX, rightRobotX, middleRobotX])
+  // useEffect(()=>{
+  //   console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement)
+  // },[leftRobotX, rightRobotX, middleRobotX])
 
   return (
     <div onKeyUp={handleKeyUp} ref={arenaRef} style={{ display: "flex" }}>
@@ -320,7 +326,7 @@ function Microrobot(props) {
             <motion.img
               variants={svgVariants}
               initial="attackMode"
-              animate="rightVisible"
+              animate="attackModeAnimate"
               src={syringe}
             />
           )}
