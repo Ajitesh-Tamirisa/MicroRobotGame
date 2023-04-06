@@ -52,7 +52,7 @@ function Background(props) {
       controls.stop();
       setTimeout(handleUserWin, 750);  
     } else if (!detectBacteriaWin()) {
-      setPosX(posX + 3);
+      setPosX(posX + 4);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);

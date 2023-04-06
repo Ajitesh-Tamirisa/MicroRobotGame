@@ -11,7 +11,8 @@ import soundIcon from "./Images/sound icon.svg";
 import heartIcon from "./Images/heart.svg";
 import hpIcon from "./Images/HP.svg";
 import playerWinVideo from "./Images/microhappy-01.mp4";
-import playerLossVideo from "./Images/microbot_sad_anime.mp4";
+import playerLossVideo from "./Images/microbot_sad_animepre 3.mp4";
+import InstructionsOverlay from "./Components/InstructionsOverlay/InstructionsOverlay";
 
 function App() {
   const [focus, setFocus] = useState(false);
@@ -20,8 +21,11 @@ function App() {
   const [userLoss, setUserLoss] = useState(false);
   const [playUserWinVid, setPlayUserWinVid] = useState(false)
   const [playUserLossVid, setPlayUserLossVid] = useState(false)
+  const [overlay, setOverlay] = useState(true)
 
   const backgroundStreamRef = useRef(null);
+
+  const arenaRef = useRef(null)
 
   const updateUserWin = (val)=>{
     console.log(val, " updateUserWin called")
@@ -66,7 +70,12 @@ function App() {
     let rect = backgroundStreamRef.current ? backgroundStreamRef.current.offsetWidth : -1;
     console.log(rect)
     setStreamEnd(rect)
-  }, [backgroundStreamRef.current]);
+    console.log(overlay)
+    if(!overlay){
+      // document.getElementById('focus').focus()
+      // console.log("asjbdjhb")
+    }
+  }, [backgroundStreamRef.current, overlay]);
 
   return (
     <div className="App">      
@@ -84,9 +93,12 @@ function App() {
           Your browser does not support the video tag.
         </video>
       </div>}
-      {!playUserWinVid && !playUserLossVid &&
-      <div className="arena"
-            >
+      {
+        overlay && 
+        <InstructionsOverlay arenaRef={arenaRef} setOverlay = {setOverlay}/>
+      }
+      {!playUserWinVid && !playUserLossVid && !overlay &&
+      <div className="arena">
               <div>
           <img
             id="backgroundStream"
@@ -116,7 +128,7 @@ function App() {
         </div>
       </div>
         <div className="characters">
-          <Microrobot focus={focus} streamEnd={streamEnd} userWin={userWin} updateUserWin={updateUserWin} userLoss={userLoss} updateUserLoss={updateUserLoss} />
+          <Microrobot focus={focus} arenaRef={arenaRef} streamEnd={streamEnd} userWin={userWin} updateUserWin={updateUserWin} userLoss={userLoss} updateUserLoss={updateUserLoss} overlay={overlay}/>
         </div>
       </div>
     }

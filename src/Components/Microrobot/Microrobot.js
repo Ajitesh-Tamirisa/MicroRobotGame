@@ -23,6 +23,7 @@ function Microrobot(props) {
   const [forwardMovement, setForwardMovement] = useState(false);
   const [backwardMovement, setBackwardMovement] = useState(false);
   const [attack, setAttack] = useState(false);
+  const [f, setF] = useState(props.focus)
 
   const arenaRef = useRef(null);
 
@@ -288,15 +289,18 @@ function Microrobot(props) {
   };
 
   const handleClick = () => {
+    // console.log("handling")
     arenaRef.current.focus();
   };
 
-  // useEffect(()=>{
-  //   console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement)
-  // },[leftRobotX, rightRobotX, middleRobotX])
+  useEffect(()=>{
+    // if(!f)
+    //   handleClick()  
+    // console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement)
+  },[])
 
   return (
-    <div onKeyUp={handleKeyUp} ref={arenaRef} style={{ display: "flex" }}>
+    <div onKeyUp={handleKeyUp} style={{ display: "flex" }} autoFocus id="focus" ref={div => {!f && (div && div.focus())}}>
       {/* <p><strong>LeftX-{leftRobotX}, MiddleX-{middleRobotX}, RightX-{rightRobotX}</strong></p>
         <p><strong>{leftRobotLock?"Left Extend-false":"Left Extend-true"}, {rightRobotLock?"Right Extend-false":"Right Extend-true"}</strong></p> */}
       <button onClick={handleClick} style={{ display: "flex", height: 20 }}>

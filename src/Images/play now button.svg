@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 241.68 82.56">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #010101;
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 15.93px;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        fill: #d6bea5;
+        filter: url(#drop-shadow-1);
+      }
+
+      .cls-5 {
+        letter-spacing: 0em;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="6"/>
+      <feGaussianBlur result="blur" stdDeviation="9"/>
+      <feFlood flood-color="#000" flood-opacity=".24"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-4" x="22.17" y="21.12" width="187.33" height="28.26" rx="12" ry="12"/>
+    <text class="cls-1" transform="translate(92.22 39.92)"><tspan class="cls-5" x="0" y="0">P</tspan><tspan x="8.4" y="0">l</tspan><tspan class="cls-3" x="12.16" y="0">a</tspan><tspan x="19.71" y="0">y N</tspan><tspan class="cls-2" x="41.08" y="0">o</tspan><tspan x="49.71" y="0">w</tspan></text>
+  </g>
+</svg>
