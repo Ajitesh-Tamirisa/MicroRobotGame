@@ -23,7 +23,7 @@ function Microrobot(props) {
   const [forwardMovement, setForwardMovement] = useState(false);
   const [backwardMovement, setBackwardMovement] = useState(false);
   const [attack, setAttack] = useState(false);
-  // const [f, setF] = useState(props.focus)
+  const [focus, setFocus] = useState(false)
 
   const arenaRef = useRef(null);
 
@@ -202,6 +202,7 @@ function Microrobot(props) {
   const handleClick = () => {
     // console.log("handling")
     arenaRef.current.focus();
+    setFocus(true)
   };
 
   // useEffect(()=>{
@@ -299,6 +300,7 @@ function Microrobot(props) {
         userLoss={props.userLoss}
         updateUserLoss={props.updateUserLoss}
         attack={attack}
+        focus={focus}
       />
     </div>
   );

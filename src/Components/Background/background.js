@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Microrobot from "../Microrobot/Microrobot";
@@ -10,6 +10,7 @@ import LostBacteria4 from "../../Images/bac-lose4.svg";
 import LostBacteria5 from "../../Images/bac-lose5.svg";
 import WonBacteria from "../../Images/bac-happy.svg";
 import bacteriumDent from "../../Images/bacterium_dent_02.svg"
+import catchDialog from "../../Images/dia-catch.svg";
 import "./background.css";
 
 function Background(props) {
@@ -52,7 +53,9 @@ function Background(props) {
       controls.stop();
       setTimeout(handleUserWin, 750);  
     } else if (!detectBacteriaWin()) {
-      setPosX(posX + 4);
+      // console.log("sdadasdasdasd")
+      if(props.focus)
+        setPosX(posX + 5);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);
@@ -60,11 +63,9 @@ function Background(props) {
   };
 
   const handleUserWin = ()=>{
-    // setTimeout(console.log('break'), 5000);   
     setBacteriaDentState(true)
     console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
     setVisible(false)   
-    // document.getElementById("bacteria").style.display = "none";
     document.getElementById("lostBacteria1").style.visibility = "visible";
     console.log("Entered: " + posX);
     dentBacteria() 
@@ -149,12 +150,17 @@ function Background(props) {
     let rect = document.getElementById("bacteriaSvg").getBoundingClientRect();
     let bacteriaPos = rect["left"];
     // console.log(bacteriaPos+" --------------- "+props.streamEnd)
-    if (bacteriaPos >= props.streamEnd-30 && props.streamEnd !== 0) {
+    // console.log(props.streamEnd)
+    if (bacteriaPos >= props.streamEnd-30 && props.streamEnd !== 0 && props.streamEnd>-1) {
       console.log("End");
       return true;
     }
     return false;
   };
+
+  useEffect(()=>{
+    check()
+  }, [props.focus])
 
   return (
     <div>
