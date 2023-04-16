@@ -97,12 +97,12 @@ function App() {
             className="dangerZone"
           />
         </div>
-        <div className="settingsPanel">
+        {/* <div className="settingsPanel">
           <div className="settings">
             <img className="icons" src={settingIcon} />
             
           </div>
-        </div>
+        </div> */}
         <div className="characters">
           <Microrobot focus={focus} arenaRef={arenaRef} streamEnd={streamEnd} userWin={userWin} updateUserWin={updateUserWin} userLoss={userLoss} updateUserLoss={updateUserLoss} overlay={overlay}/>
         </div>
