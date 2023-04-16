@@ -13,6 +13,7 @@ import microSad3 from "../../Images/micro-sad03.svg";
 import microrobotSpecial from "../../Images/bot with syringe.svg";
 import syringe from "../../Images/syringe.svg";
 import Background from "../Background/background";
+import './Microbot.css'
 
 function Microrobot(props) {
   const [leftRobotX, setLeftRobotX] = useState(100);
@@ -203,6 +204,7 @@ function Microrobot(props) {
     // console.log("handling")
     arenaRef.current.focus();
     setFocus(true)
+    
   };
 
   // useEffect(()=>{
@@ -215,8 +217,8 @@ function Microrobot(props) {
     <div id='gamearea' onKeyUp={handleKeyUp} style={{ display: "flex", flexDirection:'row' }} autoFocus ref={arenaRef}>
       {/* <p><strong>LeftX-{leftRobotX}, MiddleX-{middleRobotX}, RightX-{rightRobotX}</strong></p>
         <p><strong>{leftRobotLock?"Left Extend-false":"Left Extend-true"}, {rightRobotLock?"Right Extend-false":"Right Extend-true"}</strong></p> */}
-      <button onClick={handleClick} style={{ display: "flex", height: 20 }}>
-        Start
+      <button id='start' onClick={handleClick}>
+        START
       </button>
       {!userWin && !props.userLoss && (
         <div style={{ width: 80, height: 100, display: "flex" }}>
