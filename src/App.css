@@ -1,9 +1,11 @@
 body{
     background-color: #ffe2c0;
+    overflow-x: hidden;
 }
-/* .App{    
-    margin: 5px;
-} */
+.App{    
+    max-width: "100%";
+    overflow-x: hidden;
+}
 .arena{
     width:100%;
     height: 100vh;
@@ -26,15 +28,15 @@ body{
     /* display: table-cell; */
     flex: 1;
     height:100%;
-    width: auto;
+    width: 100%;
     margin: 0;
 }
 .dangerZone{
     /* flex: 1; */
     /* display: table-cell; */
     position: relative;
-    top: 17.8%;
-    height: 76%;
+    top: 18.5%;
+    height: 74%;
     width: auto;
     margin: 0;
 }

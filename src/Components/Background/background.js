@@ -3,13 +3,14 @@ import ReactPlayer from "react-player";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Microrobot from "../Microrobot/Microrobot";
 import bacteria from "../../Images/bacterium-02.svg";
-import LostBacteria1 from "../../Images/bac-lose1.svg";
-import LostBacteria2 from "../../Images/bac-lose2.svg";
-import LostBacteria3 from "../../Images/bac-lose3.svg";
-import LostBacteria4 from "../../Images/bac-lose4.svg";
-import LostBacteria5 from "../../Images/bac-lose5.svg";
+import LostBacteria1 from "../../Images/bac crying.svg";
+import LostBacteria2 from "../../Images/bac exp 2.svg";
+import LostBacteria4 from "../../Images/bac exp 4.svg";
+import LostBacteria3 from "../../Images/bac exp 3.svg";
+import LostBacteria5 from "../../Images/bac exp 5.svg";
 import WonBacteria from "../../Images/bac-happy.svg";
-import bacteriumDent from "../../Images/bacterium_dent_02.svg"
+import bacteriumDent from "../../Images/_bac w words 2.svg"
+import bacteriaByeBye from "../../Images/bac w words3.svg"
 import catchDialog from "../../Images/dia-catch.svg";
 import "./background.css";
 
@@ -17,10 +18,10 @@ function Background(props) {
   const [posX, setPosX] = useState(550);
   const [visible, setVisible] = useState(true);
   const [bacteriaDentState, setBacteriaDentState] = useState(false)
+  // const [aboutToLose, setAboutToLose] = useState(false)
   // const [userWin, setUserWin] = useState(false);
   // const [userLoss, setUserLoss] = useState(false)
 
-  // console.log("Stream end - "+props.streamEnd);
 
   const controls = useAnimation();
 
@@ -73,7 +74,7 @@ function Background(props) {
   }
 
   const animationProps = {
-    initial: { x: 450, y: 0, scale: "1.4" },
+    initial: { x: posX, y: 0, scale: "1.4" },
     show: {
       x: posX,
       y: 0,
@@ -87,6 +88,17 @@ function Background(props) {
     //   scale: 2,
     // },
   };
+
+  // const bacteriaByeByeProps = {
+  //   initial: { x: posX, y: -10, scale: "1.75" },
+  //   show: {
+  //     x: posX,
+  //     y: -10,
+  //     transition: {
+  //       ease: "linear",
+  //     }
+  //   }
+  // };
 
   const lossAnimationProps = {
     initial: { x: posX, y: -130 },
@@ -107,6 +119,14 @@ function Background(props) {
     win: {
       x: posX,
       scale: 1.5,
+    },
+  };
+
+  const dentBacteriaProps = {
+    initial: { x: posX+20, y: -130, scale:2 },
+    loss: {
+      x: posX,
+      scale: 1.75,
     },
   };
 
@@ -155,6 +175,14 @@ function Background(props) {
       console.log("End");
       return true;
     }
+    // else if (bacteriaPos >= props.streamEnd-130 && props.streamEnd !== 0 && props.streamEnd>-1) {
+      // if(!flag){
+        // setFlag(true)
+        // setAboutToLose(true)
+        // setTimeout(function update(){setAboutToLose(false)}, 1500)
+      // }
+      // return false;
+    // }
     return false;
   };
 
@@ -163,10 +191,10 @@ function Background(props) {
   }, [props.focus])
 
   return (
-    <div>
+    <div id="background">
       <div className="bacteria" id="bacteria">
         <AnimatePresence>
-          {visible && (
+          {visible  && (
             <motion.img
               id="bacteriaSvg"
               variants={animationProps}
@@ -185,6 +213,25 @@ function Background(props) {
               }}
             />
           )}
+          {/* {visible && aboutToLose && (
+            <motion.img
+              id="bacteriaSvg"
+              src={bacteriaByeBye}
+              variants={bacteriaByeByeProps}
+              key="modal"
+              initial="initial"
+              animate="show"
+              // exit="exit"
+              // onAnimationStart={() => check()}
+
+              onAnimationComplete={() => {
+                check();
+              }}
+              onAnimationEnd={() => {
+                document.getElementById("bacteria").style.display = "flex";
+              }}
+            />
+          )} */}
         </AnimatePresence>
       </div>
       <div>
@@ -195,7 +242,7 @@ function Background(props) {
           >
             {bacteriaDentState && (
               <motion.img
-                variants={lossAnimationProps}
+                variants={dentBacteriaProps}
                 src={bacteriumDent}
                 initial="initial"
                 animate="loss"

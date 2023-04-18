@@ -12,6 +12,7 @@ function InstructionsOverlay({setOverlay, arenaRef}) {
     <div style={{display:"flex", flexDirection:'column', alignItems:'center'}}>
         <img
             src={instructions}
+            style={{width:'90%', height:'90vh'}}
         />
         <div>
             <button onClick={handleClick} className='button'>Play Now</button>

@@ -3,3 +3,9 @@
   height: 100px;
   display: flex;
 }
+#background{  
+  max-width: "100%"
+}
+#bacteriaSvg{
+  overflow-x: hidden;
+}

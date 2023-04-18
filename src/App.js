@@ -2,7 +2,7 @@ import "./App.css";
 import Microrobot from "./Components/Microrobot/Microrobot";
 import BackgroundStream from "./Images/back-04.svg";
 import DangerZone from "./Images/danger03.svg";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import settingIcon from "./Images/setting icon.svg";
 import playerWinVideo from "./Images/Comp 1_02.mp4";
 import playerLossVideo from "./Images/microbot_sad_animepre 2_3.mp4";
@@ -16,6 +16,7 @@ function App() {
   const [playUserWinVid, setPlayUserWinVid] = useState(false)
   const [playUserLossVid, setPlayUserLossVid] = useState(false)
   const [overlay, setOverlay] = useState(true)
+  const [shouldRenderRef, setShouldRenderRef] = useState(false);
 
   const backgroundStreamRef = useRef(null);
 
@@ -52,11 +53,57 @@ function App() {
     // document.getElementById('gameplay')
   };
 
-  useEffect(()=>{
-    // detectStreamEdges();
-    let rect = backgroundStreamRef.current ? backgroundStreamRef.current.offsetWidth : -1;
-    setStreamEnd(rect)
-  }, [backgroundStreamRef.current, overlay]);
+  const detectStreamEdges = ()=>{
+    const myImage = document.getElementById("backgroundStream");
+    const computedStyle = window.getComputedStyle(myImage);
+    const width = computedStyle.width;
+    let r = backgroundStreamRef.current ? backgroundStreamRef.current.getBoundingClientRect().width : -1;   
+    setStreamEnd(r) 
+    console.log(r)
+     
+    console.log('width - ',width)
+    console.log(backgroundStreamRef.current)
+  }
+
+  // useEffect(()=>{
+  //   // if(!overlay)
+  //   //   setShouldRenderRef(true)
+  //   setTimeout(() => {
+  //   let rect = backgroundStreamRef.current ? backgroundStreamRef.current.offsetWidth : -1;
+  //   // while(rect<1 && !overlay)
+  //   //   detectStreamEdges();
+  //   console.log('OffsetWidth - ',rect)
+  //   setStreamEnd(rect)
+  //   if (backgroundStreamRef.current) {
+  //     setStreamEnd(backgroundStreamRef.current.offsetWidth);
+  //   }
+  //   },0)
+  // }, [overlay]);
+
+  useEffect(() => {
+    if(!overlay){
+      if (backgroundStreamRef.current && backgroundStreamRef.current.complete) {
+        const computedStyle = window.getComputedStyle(backgroundStreamRef.current);
+        setStreamEnd(parseFloat(computedStyle.width.split('p')[0]));
+      } else {
+        const onImageLoad = () => {
+          const computedStyle = window.getComputedStyle(backgroundStreamRef.current);
+          setStreamEnd(parseFloat(computedStyle.width.split('p')[0]));
+        };
+        backgroundStreamRef.current.addEventListener("load", onImageLoad);
+        return () => {
+          backgroundStreamRef.current.removeEventListener("load", onImageLoad);
+        };
+      }
+      console.log('streamEnd - ',streamEnd)
+    }
+  }, [backgroundStreamRef, overlay]);
+
+  // useLayoutEffect(()=>{
+  //   setTimeout(() => {
+  //     detectStreamEdges()
+  //   },0)
+  // }, [overlay])
 
   return (
     <div className="App">      
@@ -78,9 +125,9 @@ function App() {
         overlay && 
         <InstructionsOverlay arenaRef={arenaRef} setOverlay = {setOverlay}/>
       }
-      {!playUserWinVid && !playUserLossVid && !overlay &&
-      <div className="arena">
-        <div>
+      {!playUserWinVid && !playUserLossVid && !overlay && 
+      <div className="arena" style={{overflowX: "auto"}}>
+        <div >
           <img
             id="backgroundStream"
             src={BackgroundStream}
@@ -103,9 +150,9 @@ function App() {
             
           </div>
         </div> */}
-        <div className="characters">
+        {streamEnd && (<div className="characters">
           <Microrobot focus={focus} arenaRef={arenaRef} streamEnd={streamEnd} userWin={userWin} updateUserWin={updateUserWin} userLoss={userLoss} updateUserLoss={updateUserLoss} overlay={overlay}/>
-        </div>
+        </div>)}
       </div>
     }
     </div>
