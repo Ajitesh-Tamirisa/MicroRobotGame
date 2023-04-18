@@ -9,6 +9,7 @@ import LostBacteria4 from "../../Images/bac exp 4.svg";
 import LostBacteria3 from "../../Images/bac exp 3.svg";
 import LostBacteria5 from "../../Images/bac exp 5.svg";
 import WonBacteria from "../../Images/bac-happy.svg";
+import startBacteria from "../../Images/bac w words.svg";
 import bacteriumDent from "../../Images/_bac w words 2.svg"
 import bacteriaByeBye from "../../Images/bac w words3.svg"
 import catchDialog from "../../Images/dia-catch.svg";
@@ -89,16 +90,16 @@ function Background(props) {
     // },
   };
 
-  // const bacteriaByeByeProps = {
-  //   initial: { x: posX, y: -10, scale: "1.75" },
-  //   show: {
-  //     x: posX,
-  //     y: -10,
-  //     transition: {
-  //       ease: "linear",
-  //     }
-  //   }
-  // };
+  const startBacteriaProps = {
+    initial: { x: posX, y: -25, scale: "1.8" },
+    show: {
+      x: posX,
+      y: -25,
+      transition: {
+        ease: "linear",
+      }, scale: "1.8"
+    }
+  };
 
   const lossAnimationProps = {
     initial: { x: posX, y: -130 },
@@ -115,10 +116,9 @@ function Background(props) {
     },
   };
   const wonBacteriaProps = {
-    initial: { x: posX, y: -130 },
+    initial: { x: posX+20, y: -130 },
     win: {
-      x: posX,
-      scale: 1.5,
+      x: posX+20
     },
   };
 
@@ -194,7 +194,7 @@ function Background(props) {
     <div id="background">
       <div className="bacteria" id="bacteria">
         <AnimatePresence>
-          {visible  && (
+          {visible  && props.focus && (
             <motion.img
               id="bacteriaSvg"
               variants={animationProps}
@@ -213,11 +213,11 @@ function Background(props) {
               }}
             />
           )}
-          {/* {visible && aboutToLose && (
+          {visible && !props.focus && (
             <motion.img
               id="bacteriaSvg"
-              src={bacteriaByeBye}
-              variants={bacteriaByeByeProps}
+              src={startBacteria}
+              variants={startBacteriaProps}
               key="modal"
               initial="initial"
               animate="show"
@@ -231,7 +231,7 @@ function Background(props) {
                 document.getElementById("bacteria").style.display = "flex";
               }}
             />
-          )} */}
+          )}
         </AnimatePresence>
       </div>
       <div>
