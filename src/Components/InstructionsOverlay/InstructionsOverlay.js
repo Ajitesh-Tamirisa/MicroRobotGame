@@ -1,5 +1,6 @@
 import React from 'react'
-import instructions from "../../Images/instruction.svg"
+import instructions from "../../Images/instruction_svg_2.svg"
+import name from "../../Images/Name.svg"
 import './InstructionsOverlay.css'
 
 function InstructionsOverlay({setOverlay, arenaRef}) {
@@ -10,9 +11,13 @@ function InstructionsOverlay({setOverlay, arenaRef}) {
     }
     return (
     <div style={{display:"flex", flexDirection:'column', alignItems:'center'}}>
+        {/* <img
+            style={{width:'35%', marginTop:'15px'}}
+            src={name}
+            /> */}
         <img
             src={instructions}
-            style={{width:'90%', height:'90vh'}}
+            style={{width:'90%', height:'82vh'}}
         />
         <div>
             <button onClick={handleClick} className='button'>Play Now</button>

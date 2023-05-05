@@ -5,10 +5,13 @@ body{
 .App{    
     max-width: "100%";
     overflow-x: hidden;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
 }
 .arena{
     width:100%;
-    height: 100vh;
+    height: 95%;
     /* background-image: url("./Images/Main-02.svg");  */
     background-repeat: no-repeat;
     background-size: contain;
@@ -19,15 +22,15 @@ body{
 .characters{
     position: absolute;
     display: flex;
-    top: 50%;
+    top: 45%;
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 10px;
 }
 .backgroundStream{
     /* display: table-cell; */
     flex: 1;
-    height:100%;
+    height:120%;
     width: 100%;
     margin: 0;
 }
@@ -71,3 +74,65 @@ body{
     margin-left: 5px;
     margin-right: 15px;
 }
+#userLossVid{
+    position: absolute;
+    z-index: -1;
+}
+#userWinVid{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+.tryAgain {
+    position: absolute;
+    top: 80%;
+    background-color: #D6BEA5;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    text-align: center;
+    text-decoration: none;
+    -webkit-animation: glowing 1500ms infinite;
+    -moz-animation: glowing 1500ms infinite;
+    -o-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
+    width: fit-content;
+    font-size: 18px;
+    left: 0;
+    margin: 0 auto;
+    padding: 10px 22px;
+    right: 0;
+}
+
+.tryAgain:hover{
+    cursor: pointer;
+}
+
+@-webkit-keyframes glowing {
+    0% { background-color: #D6BEA5; -webkit-box-shadow: 0 0 3px #D6BEA5; }
+    50% { background-color: rgb(256, 200, 170); -webkit-box-shadow: 0 0 40px rgb(256, 200, 170); }
+    100% { background-color: #D6BEA5; -webkit-box-shadow: 0 0 3px #D6BEA5; }
+  }
+  
+  @-moz-keyframes glowing {
+    0% { background-color: #D6BEA5; -moz-box-shadow: 0 0 3px #D6BEA5; }
+    50% { background-color: rgb(256, 200, 170); -moz-box-shadow: 0 0 40px rgb(256, 200, 170); }
+    100% { background-color: #D6BEA5; -moz-box-shadow: 0 0 3px #D6BEA5; }
+  }
+  
+  @-o-keyframes glowing {
+    0% { background-color: #D6BEA5; box-shadow: 0 0 3px #D6BEA5; }
+    50% { background-color: rgb(256, 200, 170); box-shadow: 0 0 40px rgb(256, 200, 170); }
+    100% { background-color: #D6BEA5; box-shadow: 0 0 3px #D6BEA5; }
+  }
+  
+  @keyframes glowing {
+    0% { background-color: #D6BEA5; box-shadow: 0 0 3px #D6BEA5; }
+    50% { background-color: rgb(256, 200, 170); box-shadow: 0 0 40px rgb(256, 200, 170); }
+    100% { background-color: #D6BEA5; box-shadow: 0 0 3px #D6BEA5; }
+  }

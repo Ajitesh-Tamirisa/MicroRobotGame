@@ -25,6 +25,9 @@ function Microrobot(props) {
   const [backwardMovement, setBackwardMovement] = useState(false);
   const [attack, setAttack] = useState(false);
   const [focus, setFocus] = useState(false)
+  const [timerStart, setTimerStart] = useState(false)
+  const [begin, setBegin] = useState(false)
+  const [pauseAttack, setPauseAttack] = useState(false)
 
   const arenaRef = useRef(null);
 
@@ -77,151 +80,231 @@ function Microrobot(props) {
     setAttack(false);
   };
 
-  const handleKeyUp = async (e) => {
-    //spacebar to toggle attack
-    if (e.keyCode === 32) {
+  const handleKeyDown = (e)=>{
+    console.log(e.keyCode)
+
+    if (e.keyCode === 32 && !pauseAttack) {
       setAttack(!attack);
       setTimeout(disableAttack, 3000);
       // setAttack(false)
       return;
     }
 
-    // w-87, a-65, s-83 , d-68;
     //left arrow-37, right arrow - 39;
-    //A, D control the movements of the left sphere of the robot
-    //Arrow keys control the movements of the right sphere of the robot
-
-    //Forward movement - D, left arrow, A, right arrow   | 68, 37, 65, 39
-    //Backward movement - left arrow, D, right arrow, A  | 37, 68, 39, 65
-
 
     if(!leftRobotLock && !rightRobotLock){
-
-      //Both arms are expanded
-
-      if(e.keyCode == 37){
-        //Left Arrow pressed when both the arms are expanded
+      if(e.keyCode == 39){
+        //Right Arrow pressed when both arms are expanded
         setMiddleRobotX(parseFloat((middleRobotX+13.53).toFixed(2)))
-        setLeftRobotX(parseFloat((leftRobotX+13.53).toFixed(2)))
         setRightRobotX(parseFloat((rightRobotX-26.46).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX+13.53).toFixed(2)))
         setRightRobotLock(true)
         setBackwardMovement(true)
       }
-      if(e.keyCode == 68){
-        //D is pressed when both the arms are expanded
+      else if(e.keyCode === 37){
+        //Left arrow pressed when both arms are expanded
         setMiddleRobotX(parseFloat((middleRobotX-13.53).toFixed(2)))
         setRightRobotX(parseFloat((rightRobotX-13.53).toFixed(2)))
         setLeftRobotX(parseFloat((leftRobotX+26.46).toFixed(2)))
         setLeftRobotLock(true)
-        setForwardMovement(true);
+        setForwardMovement(true)
       }
     }
-
     if(leftRobotLock && !rightRobotLock){
-
-      //left arm is locked and right arm is expanded
-
-      if(e.keyCode == 37){
-        //left arrow pressed when left arm is locked and right arm is expanded
-        setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
-        setLeftRobotX(parseFloat((leftRobotX+14.39).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-25.60).toFixed(2)))
-        setRightRobotLock(true)
-      }
-      if(e.keyCode == 65){
-        //A is pressed when left arm is locked and right arm is expanded
-        if(backwardMovement){
-          setBackwardMovement(false)
-          setLeftRobotX(parseFloat((leftRobotX - 39.99).toFixed(2)));
-          setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
-          setRightRobotX(parseFloat((rightRobotX).toFixed(2)));
-          setLeftRobotLock(false);
+      if(forwardMovement){
+        if(e.keyCode === 39){
+          //Right Arrow pressed when only right arm is expanded
+          setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
+          setRightRobotX(parseFloat((rightRobotX-25.60).toFixed(2)))
+          setLeftRobotX(parseFloat((leftRobotX+14.39).toFixed(2)))
+          setRightRobotLock(true)
         }
-        else{
-          setMiddleRobotX(parseFloat((middleRobotX+13.53).toFixed(2)))
-          setRightRobotX(parseFloat((rightRobotX+13.53).toFixed(2)))
-          setLeftRobotX(parseFloat((leftRobotX-26.46).toFixed(2)))
-          setLeftRobotLock(false)
-          setForwardMovement(false);
+        // if(e.keyCode == 37){
+        //   //Left Arrow pressed when only left arm is expanded
+        //   //forward movement starts
+        // }
+      }
+      else if(backwardMovement){
+        if(e.keyCode === 39){
+          setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
+          setRightRobotX(parseFloat((rightRobotX-25.60).toFixed(2)))
+          setLeftRobotX(parseFloat((leftRobotX+14.39).toFixed(2)))
+          setRightRobotLock(true)
         }
       }
     }
-
     if(!leftRobotLock && rightRobotLock){
-
-      //left arm is expanded and right arm is locked
-
-      if(e.keyCode == 39){
-        //Right arrow is pressed when left arm is expanded and right arm is locked
-        if(forwardMovement){
-          setLeftRobotX(parseFloat(leftRobotX.toFixed(2)));
-          setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
-          setRightRobotX(parseFloat((rightRobotX + 39.99).toFixed(2)));
-          setRightRobotLock(false);
-          setForwardMovement(false)
+      if(forwardMovement){
+        if(e.keyCode === 37){
+          setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
+          setRightRobotX(parseFloat((rightRobotX-14.39).toFixed(2)))
+          setLeftRobotX(parseFloat((leftRobotX+25.60).toFixed(2)))
+          setLeftRobotLock(true)
         }
-        else{
-          setMiddleRobotX(parseFloat((middleRobotX-13.53).toFixed(2)))
-          setLeftRobotX(parseFloat((leftRobotX-13.53).toFixed(2)))
-          setRightRobotX(parseFloat((rightRobotX+26.46).toFixed(2)))
-          setRightRobotLock(false)
-          setBackwardMovement(false)
+      }
+      else if(backwardMovement){
+        if(e.keyCode === 37){
+          setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
+          setLeftRobotX(parseFloat((leftRobotX+25.60).toFixed(2)))
+          setRightRobotX(parseFloat((rightRobotX-14.39).toFixed(2)))
+          setLeftRobotLock(true)
         }
-        
       }
-      if(e.keyCode == 68){
-        //D is pressed when left arm is expanded and right arm is locked
-        setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
-        setLeftRobotX(parseFloat((leftRobotX+25.60).toFixed(2)))
-        setRightRobotX(parseFloat((rightRobotX-14.39).toFixed(2)))
-        setLeftRobotLock(true)
-      }
-
     }
+    
+  }
 
-    if(leftRobotLock && rightRobotLock){
 
-      //both arms are locked
+const handleKeyUp = async (e) => {
 
+  //left arrow-37, right arrow - 39;
+  console.log(e.keyCode)
+
+  if(!leftRobotLock && !rightRobotLock){
+    //Both arms are expanded
+    if(e.keyCode == 39){
+      //Right Arrow released when both the arms are expanded
+      //forward movement starts
+    }
+    if(e.keyCode == 37){
+      //Left Arrow released when both the arms are expanded
+      //backward movement starts
+    }
+  }
+  if(leftRobotLock && rightRobotLock){
+    if(forwardMovement){
       if(e.keyCode == 39){
-        //Right arrow is pressed when both arms are locked
+        //Right Arrow released when both the arms are locked and forwardMovement
         setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
-        setLeftRobotX(parseFloat((leftRobotX-14.39).toFixed(2)))
         setRightRobotX(parseFloat((rightRobotX+25.60).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX-14.39).toFixed(2)))
         setRightRobotLock(false)
       }
-      if(e.keyCode == 65){
-        //A is pressed when both arms are locked
+      if(e.keyCode == 37){
+        //left arrow released when both arms are locked and forwardMovement
+        setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
+        setRightRobotX(parseFloat((rightRobotX+14.39).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX-25.60).toFixed(2)))
+        setLeftRobotLock(false)
+      }
+    }
+    else if (backwardMovement){
+      if(e.keyCode == 37){
+        //Left Arrow pressed when both the arms are locked and backwardMovement
+        //undo backward movement
         setMiddleRobotX(parseFloat((middleRobotX+14.39).toFixed(2)))
         setLeftRobotX(parseFloat((leftRobotX-25.60).toFixed(2)))
         setRightRobotX(parseFloat((rightRobotX+14.39).toFixed(2)))
         setLeftRobotLock(false)
       }
+      else if(e.keyCode === 39){
+        //Right Arrow released when both arms are locked and backwardMovement
+        setMiddleRobotX(parseFloat((middleRobotX-14.39).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX-14.39).toFixed(2)))
+        setRightRobotX(parseFloat((rightRobotX+25.60).toFixed(2)))
+        setRightRobotLock(false)
+      }
     }
+  }
+  if(leftRobotLock && !rightRobotLock){
+    if(forwardMovement){
+      //if(e.keyCode === 39){
+        //Right arrow key released when only the left arm is locked and forwardMovement
+      //}
+      if(e.keyCode === 37){
+        //Left arrow key released when only the left arm is locked and forwardMovement
+        setMiddleRobotX(parseFloat((middleRobotX+13.53).toFixed(2)))
+        setRightRobotX(parseFloat((rightRobotX+13.53).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX-26.46).toFixed(2)))
+        setLeftRobotLock(false)
+        setForwardMovement(false)
+      }
+    }
+    else if(backwardMovement){
+      if(e.keyCode === 37){
+        setBackwardMovement(false)
+        setLeftRobotX(parseFloat((leftRobotX - 39.99).toFixed(2)));
+        setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX).toFixed(2)));
+        setLeftRobotLock(false);
+      }
+    }
+  }
+  if(!leftRobotLock && rightRobotLock){
+    if(forwardMovement){
+      if(e.keyCode === 39){
+        //Right arrow key released when only the right arm is locked and forwardMovement
+        //End of forward movement cycle
+        setLeftRobotX(parseFloat(leftRobotX.toFixed(2)));
+        setMiddleRobotX(parseFloat(middleRobotX.toFixed(2)));
+        setRightRobotX(parseFloat((rightRobotX + 39.99).toFixed(2)));
+        setRightRobotLock(false);
+        setForwardMovement(false)
+      }
+      // if(e.keyCode === 37){
+      //   //Left arrow key released when only the right arm is locked and forwardMovement
+      //   leftArrowKeyUp1()
+      // }
+    }
+    else if(backwardMovement){
+      if(e.keyCode === 39){
+        setMiddleRobotX(parseFloat((middleRobotX-13.53).toFixed(2)))
+        setRightRobotX(parseFloat((rightRobotX+26.46).toFixed(2)))
+        setLeftRobotX(parseFloat((leftRobotX-13.53).toFixed(2)))
+        setRightRobotLock(false)
+        setBackwardMovement(false)
+      }
+    }
+  }
 };
 
-  const handleClick = () => {
-    // console.log("handling")
+const startMovement = ()=>{
+  arenaRef.current.blur();
+  startMovementChild()
+  
+}
+
+const startMovementChild = ()=>{
+  if(!begin){
+    setBegin(true)
+    setFocus(true) 
+    setLeftRobotX(100)
+    setRightRobotX(100)
+    setMiddleRobotX(100)  
+    setLeftRobotLock(false)
+    setRightRobotLock(false)
+    setAttack(false)
     arenaRef.current.focus();
-    setFocus(true)
-    
+    setPauseAttack(true);
+    setTimeout(()=>{setPauseAttack(false)}, 3500);
+  }
+}
+
+  const handleClick = () => {
+    // wait for 15sec
+    setTimerStart(true)
+    arenaRef.current.focus();
+    setTimeout(startMovement, 10000)   
   };
 
-  // useEffect(()=>{
-    // if(!f)
-    //   handleClick()  
-    // console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement)
-  // },[])
+  useEffect(()=>{
+    console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement, "\nL Lock-",leftRobotLock, "\nR Lock-",rightRobotLock);
+  },[leftRobotX, rightRobotX, middleRobotX])
+
+  useEffect(()=>{    
+    console.log("PauseAttack - ",pauseAttack)
+  }, [pauseAttack])
 
   return (
-    <div id='gamearea' onKeyUp={handleKeyUp} style={{ display: "flex", flexDirection:'row' }} autoFocus ref={arenaRef}>
+    <div id='gamearea' onKeyUp={handleKeyUp} onKeyDown={handleKeyDown} style={{ display: "flex", flexDirection:'row' }} autoFocus ref={arenaRef}>
       {/* <p><strong>LeftX-{leftRobotX}, MiddleX-{middleRobotX}, RightX-{rightRobotX}</strong></p>
         <p><strong>{leftRobotLock?"Left Extend-false":"Left Extend-true"}, {rightRobotLock?"Right Extend-false":"Right Extend-true"}</strong></p> */}
       <button id='start' onClick={handleClick}>
         START
       </button>
+      
       {!userWin && !props.userLoss && (
-        <div style={{ width: 80, height: 100, display: "flex" }}>
+        <div className="spheres">
           <motion.img
             variants={svgVariants}
             initial="leftHidden"
@@ -251,7 +334,7 @@ function Microrobot(props) {
         </div>
       )}
       {props.userWin && (
-        <div style={{ width: 80, height: 100, display: "flex" }}>
+        <div  className="spheres">
           <motion.img
             variants={svgVariants}
             initial="leftHidden"
@@ -273,7 +356,7 @@ function Microrobot(props) {
         </div>
       )}
       {props.userLoss && (
-        <div style={{ width: 80, height: 100, display: "flex" }}>
+        <div className="spheres">
           <motion.img
             variants={svgVariants}
             initial="leftHidden"
@@ -303,6 +386,8 @@ function Microrobot(props) {
         updateUserLoss={props.updateUserLoss}
         attack={attack}
         focus={focus}
+        timerStart={timerStart}
+        isFireFox = {props.isFireFox}
       />
     </div>
   );

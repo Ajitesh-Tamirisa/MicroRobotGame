@@ -2,7 +2,7 @@
 
 #start {
     padding-top: 2px;
-    width: 50%;
+    width: 30%;
     height: 40px;
     border: none;
     outline: none;
@@ -16,8 +16,8 @@
     justify-content: center;
     text-transform: capitalize;
     display: block;
-    left: 25%;
-    bottom: 380%;
+    left: 37%;
+    bottom: 350%;
     white-space: normal;
     font-family: Arial;
     font-size: 30px;
@@ -67,7 +67,7 @@
     height: 100%;
     background: #111;
     left: 0;
-    top: 0;
+    top: 10;
     border-radius: 10px;
     text-align: center;
     text-transform: capitalize;
@@ -84,4 +84,66 @@
 
 #gamearea{
     max-width: 100%;
+}
+
+/* .spheres{
+    width: 80px;
+    height: 100px;
+    display: flex;
+} */
+
+@media screen and (min-width: 480px) {
+    .spheres {
+        width: 20px;
+        height: 40px;
+        display: flex;
+        position: absolute;
+        top: 40%;
+    }
+}
+@media screen and (min-width: 700px) {
+    .spheres {
+        width: 40px;
+        height: 60px;
+        display: flex;
+        position: absolute;
+        top: 35%;
+    }
+}
+@media screen and (min-width: 900px) {
+    .spheres {
+        position: static;
+        width: 70px;
+        height: 90px;
+        display: flex;
+    }
+}
+
+@-moz-document url-prefix() {
+    .spheres{
+        width: 140px;
+        height: 100px;
+        display: flex;
+    }
+    @media screen and (min-width: 480px) {
+        .spheres {
+            width: 80px;
+            height: 100px;
+            display: flex;
+        }
+    }
+    @media screen and (min-width: 700px) {
+        .spheres {
+            width: 100px;
+            height: 100px;
+            display: flex;
+        }
+    }
+    @media screen and (min-width: 900px) {
+        .spheres {
+            width: 120px;
+            height: 100px;
+            display: flex;
+        }
+    }
 }

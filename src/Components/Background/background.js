@@ -9,16 +9,17 @@ import LostBacteria4 from "../../Images/bac exp 4.svg";
 import LostBacteria3 from "../../Images/bac exp 3.svg";
 import LostBacteria5 from "../../Images/bac exp 5.svg";
 import WonBacteria from "../../Images/bac-happy.svg";
-import startBacteria from "../../Images/bac w words.svg";
-import bacteriumDent from "../../Images/_bac w words 2.svg"
+import bacteriaHeyThere from "../../Images/bac wait.svg";
+import bacteriumDent from "../../Images/bac ohno 2.svg"
 import bacteriaByeBye from "../../Images/bac w words3.svg"
-import catchDialog from "../../Images/dia-catch.svg";
+import bacteriaCatchMe from "../../Images/bac catchme 2.svg";
 import "./background.css";
 
 function Background(props) {
-  const [posX, setPosX] = useState(550);
+  const [posX, setPosX] = useState(580);
   const [visible, setVisible] = useState(true);
   const [bacteriaDentState, setBacteriaDentState] = useState(false)
+  const [displayCatchMe, setDisplayCatchMe] = useState(true);
   // const [aboutToLose, setAboutToLose] = useState(false)
   // const [userWin, setUserWin] = useState(false);
   // const [userLoss, setUserLoss] = useState(false)
@@ -40,8 +41,7 @@ function Background(props) {
     // });
 
     if (
-      posX - 210 <= props.pos + 100 ||
-      (props.attack && posX - 210 <= props.pos + 250)
+      (props.attack && posX - 210 <= props.pos + 220) && !props.isFireFox
     ) {
       // console.log("Posx :" + (posX - 210) + "Props :" + (props.pos + 250));
        
@@ -53,11 +53,18 @@ function Background(props) {
       // console.log("Entered: " + posX);   
       // loseAnimation()
       controls.stop();
+      console.log("Bacteria posX - ", posX, " Props.pos - ", props.pos)
       setTimeout(handleUserWin, 750);  
-    } else if (!detectBacteriaWin()) {
+    }
+    else if((props.attack && posX - 180 <= props.pos + 100) && props.isFireFox) {
+      controls.stop();
+      console.log("Firefox\nBacteria posX - ", posX, " Props.pos - ", props.pos)
+      setTimeout(handleUserWin, 750);  
+    }
+    else if (!detectBacteriaWin()) {
       // console.log("sdadasdasdasd")
       if(props.focus)
-        setPosX(posX + 5);
+        setPosX(posX + 2);
     } else if (detectBacteriaWin()) {
       setVisible(false);
       props.updateUserLoss(true);
@@ -94,10 +101,32 @@ function Background(props) {
     initial: { x: posX, y: -25, scale: "1.8" },
     show: {
       x: posX,
+      y:0,
+      transition: {
+        ease: "linear",
+      }, scale: "1.4"
+    }
+  };
+
+  const bacteriaHeyThereProps = {
+    initial: { x: posX+280, y: -25, scale: "2.4" },
+    show: {
+      x: posX+280,
       y: -25,
       transition: {
         ease: "linear",
-      }, scale: "1.8"
+      }, scale: "2.4"
+    }
+  };
+
+  const bacteriaCatchMeProps= {
+    initial: { x: posX, y: -45, scale: "2.1" },
+    show: {
+      x: posX,
+      y: -45,
+      transition: {
+        ease: "linear",
+      }, scale: "2.1"
     }
   };
 
@@ -130,6 +159,7 @@ function Background(props) {
     },
   };
 
+  
   function loseAnimation() {
     
     
@@ -171,7 +201,7 @@ function Background(props) {
     let bacteriaPos = rect["left"];
     // console.log(bacteriaPos+" --------------- "+props.streamEnd)
     // console.log(props.streamEnd)
-    if (bacteriaPos >= props.streamEnd-30 && props.streamEnd !== 0 && props.streamEnd>-1) {
+    if (bacteriaPos >= props.streamEnd-30 && props.streamEnd !== 0 && props.streamEnd>-1 && props.focus && !displayCatchMe) {
       console.log("End");
       return true;
     }
@@ -188,13 +218,20 @@ function Background(props) {
 
   useEffect(()=>{
     check()
+    if(props.focus){
+      setTimeout(()=>setDisplayCatchMe(false), 2500);
+    }
   }, [props.focus])
+
+  useEffect(()=>{    
+    console.log(displayCatchMe," ---- ",props.focus)
+  }, [displayCatchMe])
 
   return (
     <div id="background">
       <div className="bacteria" id="bacteria">
         <AnimatePresence>
-          {visible  && props.focus && (
+          {visible  && props.focus && !displayCatchMe && (
             <motion.img
               id="bacteriaSvg"
               variants={animationProps}
@@ -213,10 +250,10 @@ function Background(props) {
               }}
             />
           )}
-          {visible && !props.focus && (
+          {visible && !props.focus && !props.timerStart &&(
             <motion.img
               id="bacteriaSvg"
-              src={startBacteria}
+              src={bacteria}
               variants={startBacteriaProps}
               key="modal"
               initial="initial"
@@ -227,6 +264,43 @@ function Background(props) {
               onAnimationComplete={() => {
                 check();
               }}
+              onAnimationEnd={() => {
+                document.getElementById("bacteria").style.display = "flex";
+              }}
+            />
+          )}
+          {visible && !props.focus && props.timerStart &&(
+            <motion.img
+              id="bacteriaSvg"
+              src={bacteriaHeyThere}
+              variants={bacteriaHeyThereProps}
+              key="modal"
+              initial="initial"
+              animate="show"
+              // exit="exit"
+              // onAnimationStart={() => check()}
+
+              onAnimationComplete={() => {
+                check();
+              }}
+              onAnimationEnd={() => {
+                document.getElementById("bacteria").style.display = "flex";
+              }}
+            />
+          )}
+          {visible && props.focus && displayCatchMe &&(
+            <motion.img
+              id="bacteriaSvg"
+              src={bacteriaCatchMe}
+              variants={bacteriaCatchMeProps}
+              key="modal"
+              initial="initial"
+              animate="show"
+              
+              onAnimationComplete={() => {
+                check();
+              }}
+
               onAnimationEnd={() => {
                 document.getElementById("bacteria").style.display = "flex";
               }}
