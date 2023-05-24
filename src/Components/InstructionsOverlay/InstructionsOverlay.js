@@ -1,5 +1,5 @@
 import React from 'react'
-import instructions from "../../Images/instruction_svg_2.svg"
+import instructions from "../../Images/instruction_MAY7.svg"
 import name from "../../Images/Name.svg"
 import './InstructionsOverlay.css'
 
