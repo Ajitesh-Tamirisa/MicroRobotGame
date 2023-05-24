@@ -1,6 +1,4 @@
-
-
-#start {
+.start {
     padding-top: 2px;
     width: 30%;
     height: 40px;
@@ -17,7 +15,7 @@
     text-transform: capitalize;
     display: block;
     left: 37%;
-    bottom: 350%;
+    bottom: 320px;
     white-space: normal;
     font-family: Arial;
     font-size: 30px;
@@ -25,7 +23,7 @@
     letter-spacing: 10px;
 }
 
-#start:before {
+.start:before {
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
@@ -47,19 +45,19 @@
 
 }
 
-#start:active {
+.start:active {
     color: #000
 }
 
-#start:active:after {
+.start:active:after {
     background: transparent;
 }
 
-#start:hover:before {
+.start:hover:before {
     opacity: 1;
 }
 
-#start:after {
+.start:after {
     z-index: -1;
     content: '';
     position: absolute;
@@ -84,6 +82,10 @@
 
 #gamearea{
     max-width: 100%;
+    outline: 0px solid tranparent;
+}
+#gamearea:focus{
+    outline: none;
 }
 
 /* .spheres{

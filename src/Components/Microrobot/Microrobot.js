@@ -28,6 +28,7 @@ function Microrobot(props) {
   const [timerStart, setTimerStart] = useState(false)
   const [begin, setBegin] = useState(false)
   const [pauseAttack, setPauseAttack] = useState(false)
+  const [buttonText, setButtonText] = useState('START')
 
   const arenaRef = useRef(null);
 
@@ -275,17 +276,26 @@ const startMovementChild = ()=>{
     setRightRobotLock(false)
     setAttack(false)
     arenaRef.current.focus();
+    document.getElementById('restart').blur();
     setPauseAttack(true);
     setTimeout(()=>{setPauseAttack(false)}, 3500);
   }
 }
 
-  const handleClick = () => {
-    // wait for 15sec
+  const handleStart = () => {
+    if(begin){      
+      window.location.reload(false);
+      return;
+    }
+    // wait for 10sec
     setTimerStart(true)
     arenaRef.current.focus();
     setTimeout(startMovement, 10000)   
   };
+
+  const handleRestart = ()=>{
+    
+  }
 
   useEffect(()=>{
     console.log('L X-',leftRobotX,"M X-",middleRobotX, "R X-", rightRobotX, "Forward Movement-", forwardMovement, "Backward Movement-",backwardMovement, "\nL Lock-",leftRobotLock, "\nR Lock-",rightRobotLock);
@@ -296,99 +306,114 @@ const startMovementChild = ()=>{
   }, [pauseAttack])
 
   return (
-    <div id='gamearea' onKeyUp={handleKeyUp} onKeyDown={handleKeyDown} style={{ display: "flex", flexDirection:'row' }} autoFocus ref={arenaRef}>
-      {/* <p><strong>LeftX-{leftRobotX}, MiddleX-{middleRobotX}, RightX-{rightRobotX}</strong></p>
-        <p><strong>{leftRobotLock?"Left Extend-false":"Left Extend-true"}, {rightRobotLock?"Right Extend-false":"Right Extend-true"}</strong></p> */}
-      <button id='start' onClick={handleClick}>
-        START
-      </button>
-      
-      {!userWin && !props.userLoss && (
-        <div className="spheres">
-          <motion.img
-            variants={svgVariants}
-            initial="leftHidden"
-            animate="leftVisible"
-            src={microrobot1}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="middleHidden"
-            animate="middleVisible"
-            src={microrobot2}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="rightHidden"
-            animate="rightVisible"
-            src={microrobot3}
-          />
-          {attack && (
+    <div>
+      {(!props.userWin && begin)? 
+        <button class="start" id='restart' onClick={handleRestart}>
+          RESTART
+        </button> : <span></span>
+        
+      }
+      <div id='gamearea' onKeyUp={handleKeyUp} onKeyDown={handleKeyDown} style={{ display: "flex", flexDirection:'row' }} autoFocus ref={arenaRef} tabindex="-1">
+        {/* <p><strong>LeftX-{leftRobotX}, MiddleX-{middleRobotX}, RightX-{rightRobotX}</strong></p>
+          <p><strong>{leftRobotLock?"Left Extend-false":"Left Extend-true"}, {rightRobotLock?"Right Extend-false":"Right Extend-true"}</strong></p> */}
+        
+        
+        {(!props.userWin) && 
+          (
+          <button class="start" id='start' onClick={handleStart}>
+            {(!props.userWin && begin)? "RESTART": "START"}
+          </button>
+          )
+        }
+        {/* <button hidden={true}>Dummy</button> */}
+        
+        {!userWin && !props.userLoss && (
+          <div className="spheres">
             <motion.img
               variants={svgVariants}
-              initial="attackMode"
-              animate="attackModeAnimate"
-              src={syringe}
+              initial="leftHidden"
+              animate="leftVisible"
+              src={microrobot1}
             />
-          )}
-        </div>
-      )}
-      {props.userWin && (
-        <div  className="spheres">
-          <motion.img
-            variants={svgVariants}
-            initial="leftHidden"
-            animate="leftVisible"
-            src={microHappy1}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="middleHidden"
-            animate="middleVisible"
-            src={microHappy2}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="rightHidden"
-            animate="rightVisible"
-            src={microHappy3}
-          />
-        </div>
-      )}
-      {props.userLoss && (
-        <div className="spheres">
-          <motion.img
-            variants={svgVariants}
-            initial="leftHidden"
-            animate="leftVisible"
-            src={microSad1}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="middleHidden"
-            animate="middleVisible"
-            src={microSad2}
-          />
-          <motion.img
-            variants={svgVariants}
-            initial="rightHidden"
-            animate="rightVisible"
-            src={microSad3}
-          />
-        </div>
-      )}
-      <Background
-        pos={leftRobotX}
-        streamEnd={props.streamEnd}
-        userWin={props.userWin}
-        updateUserWin={props.updateUserWin}
-        userLoss={props.userLoss}
-        updateUserLoss={props.updateUserLoss}
-        attack={attack}
-        focus={focus}
-        timerStart={timerStart}
-        isFireFox = {props.isFireFox}
-      />
+            <motion.img
+              variants={svgVariants}
+              initial="middleHidden"
+              animate="middleVisible"
+              src={microrobot2}
+            />
+            <motion.img
+              variants={svgVariants}
+              initial="rightHidden"
+              animate="rightVisible"
+              src={microrobot3}
+            />
+            {attack && (
+              <motion.img
+                variants={svgVariants}
+                initial="attackMode"
+                animate="attackModeAnimate"
+                src={syringe}
+              />
+            )}
+          </div>
+        )}
+        {props.userWin && (
+          <div  className="spheres">
+            <motion.img
+              variants={svgVariants}
+              initial="leftHidden"
+              animate="leftVisible"
+              src={microHappy1}
+            />
+            <motion.img
+              variants={svgVariants}
+              initial="middleHidden"
+              animate="middleVisible"
+              src={microHappy2}
+            />
+            <motion.img
+              variants={svgVariants}
+              initial="rightHidden"
+              animate="rightVisible"
+              src={microHappy3}
+            />
+          </div>
+        )}
+        {props.userLoss && (
+          <div className="spheres">
+            <motion.img
+              variants={svgVariants}
+              initial="leftHidden"
+              animate="leftVisible"
+              src={microSad1}
+            />
+            <motion.img
+              variants={svgVariants}
+              initial="middleHidden"
+              animate="middleVisible"
+              src={microSad2}
+            />
+            <motion.img
+              variants={svgVariants}
+              initial="rightHidden"
+              animate="rightVisible"
+              src={microSad3}
+            />
+          </div>
+        )}
+        <Background
+          pos={leftRobotX}
+          streamEnd={props.streamEnd}
+          userWin={props.userWin}
+          updateUserWin={props.updateUserWin}
+          userLoss={props.userLoss}
+          updateUserLoss={props.updateUserLoss}
+          attack={attack}
+          focus={focus}
+          timerStart={timerStart}
+          isFireFox = {props.isFireFox}
+        />
+      </div>
     </div>
   );
 }
