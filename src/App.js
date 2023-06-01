@@ -184,7 +184,7 @@ function App() {
           <Microrobot focus={focus} arenaRef={arenaRef} streamEnd={streamEnd} userWin={userWin} updateUserWin={updateUserWin} userLoss={userLoss} updateUserLoss={updateUserLoss} overlay={overlay} isFirefox={isFirefox}/>
         </div>)}
         
-        <div style ={{position:'absolute', padding:'15px', fontSize:'14px', left:'5%', color:'#7c6c5d'}} className="instructions">
+        <div style ={{position:'absolute', paddingLeft:'15px', paddingRight:'15px', fontSize:'14px',top:'-1%', left:'5%', color:'#7c6c5d'}} className="instructions">
           <strong><p>Left arrow controls the left sphere</p>
           Right arrow controls the right sphere<p>Use spacebar for special attack</p></strong>
         </div>

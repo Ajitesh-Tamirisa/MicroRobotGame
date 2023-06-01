@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Microrobot from "../Microrobot/Microrobot";
-import bacteria from "../../Images/bacterium-02.svg";
+import bacteria from "../../Images/bacterium.svg";
 import LostBacteria1 from "../../Images/bac crying.svg";
 import LostBacteria2 from "../../Images/bac exp 2.svg";
 import LostBacteria4 from "../../Images/bac exp 4.svg";
